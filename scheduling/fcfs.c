@@ -38,10 +38,16 @@ void main(){
     int total_tat=0;
     int total_wt=0;
     for(int i=0;i<n;i++){
+        while(sum<p[i].at){
+            sum++;
+        }
         sum+=p[i].bt;
-        p[i].ct=sum;
+        p[i].ct=sum;}
+    for(int i=0;i<n;i++){
         p[i].tat=p[i].ct-p[i].at;
         total_tat+=p[i].tat;
+    }
+    for(int i=0;i<n;i++){
         p[i].wt=p[i].tat-p[i].bt;
         total_wt+=p[i].wt;
     }
