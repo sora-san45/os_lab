@@ -50,6 +50,6 @@ void main(){
         printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n",p[i].id,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
 
     }
-    printf("average tat: %f\n",total_tat/n);
-    printf("average wt: %f",total_wt/n);
+    printf("average tat: %f\n",(float)total_tat/n);
+    printf("average wt: %f",(float)total_wt/n);
 }
