@@ -1,6 +1,5 @@
 #include <stdio.h>
-void main(){
-    struct process{
+struct process{
         int id;
         int prio;
         int at;
@@ -9,15 +8,16 @@ void main(){
         int tat;
         int wt;
     }p[10],temp;
+void main(){
     int n;
     printf("Enter number of processes : \n");
     scanf("%d",&n);
     for(int i=0;i<n;i++){
-        p.id=i+1;
+        p[i].id=i+1;
         printf("arrival time: ");
-        scanf("%d",&p.at[i]);
+        scanf("%d",&p[i].at);
         printf("burst time: ");
-        scanf("%d",&p.bt[i]);
+        scanf("%d",&p[i].bt);
     }
     //sorting based on priority
     //bubble sort

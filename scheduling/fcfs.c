@@ -1,22 +1,22 @@
 #include <stdio.h>
-void main(){
-    struct process{
+struct process{
         int id;
         int at;
         int bt;
         int ct;
         int tat;
         int wt;
-    }p[10],temp;
+}p[10],temp;
+void main(){
     int n;
     printf("Enter number of processes : \n");
     scanf("%d",&n);
     for(int i=0;i<n;i++){
-        p.id=i+1;
+        p[i].id=i+1;
         printf("arrival time: ");
-        scanf("%d",&p.at[i]);
+        scanf("%d",&p[i].at);
         printf("burst time: ");
-        scanf("%d",&p.bt[i]);
+        scanf("%d",&p[i].bt);
     }
     //sorting based on arrival time
     //bubble sort
@@ -47,7 +47,7 @@ void main(){
     }
     printf("PROCESS \t\t AT \t\t BT \t\t CT \t\t TAT \t\t WT\n");
     for(int i=0;i<n;i++){
-        printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d",p[i].id,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
+        printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n",p[i].id,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
 
     }
     printf("average tat: %f\n",total_tat/n);
