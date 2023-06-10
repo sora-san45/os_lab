@@ -38,6 +38,7 @@ void main(){
     int total_tat=0;
     int total_wt=0;
     for(int i=0;i<n;i++){
+        //for cases where there is a waiting period till next process comes in ready queue
         while(sum<p[i].at){
             sum++;
         }
