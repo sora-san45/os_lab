@@ -7,7 +7,7 @@ struct process{
         int ct;
         int tat;
         int wt;
-    }p[10],temp;
+    }p[20],temp;
 void main(){
     int n;
     printf("Enter number of processes : \n");
