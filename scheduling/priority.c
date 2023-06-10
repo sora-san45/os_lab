@@ -16,6 +16,8 @@ void main(){
         p[i].id=i+1;
         printf("arrival time: ");
         scanf("%d",&p[i].at);
+        printf("priority: ");
+        scanf("%d",&p[i].prio);
         printf("burst time: ");
         scanf("%d",&p[i].bt);
     }
@@ -46,7 +48,7 @@ void main(){
         p[i].wt=p[i].tat-p[i].bt;
         total_wt+=p[i].wt;
     }
-    printf("PROCESS \t\t AT \t\t BT \t\t CT \t\t TAT \t\t WT\n");
+    printf("PROCESS \t\t AT \t\t Priority \t\t BT \t\t CT \t\t TAT \t\t WT\n");
     for(int i=0;i<n;i++){
         printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d",p[i].id,p[i].prio,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
 
