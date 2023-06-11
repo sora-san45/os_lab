@@ -21,12 +21,12 @@ void main(){
         printf("burst time: ");
         scanf("%d",&p[i].bt);
     }
-    //sorting based on priority
+    //sorting based on arrival time
     //bubble sort
     int swapped=0;
     for(int i=0;i<n;i++){
         for(int j=0;j<n-i-1;j++){
-            if(p[j].prio>p[j+1].prio){
+            if(p[j].at>p[j+1].at){
                 swapped=1;
                 temp=p[j];
                 p[j]=p[j+1];
@@ -40,17 +40,39 @@ void main(){
     int sum=0;
     int total_tat=0;
     int total_wt=0;
+    int current=0;
+    int done=0;
+    int check[n];
     for(int i=0;i<n;i++){
-        sum+=p[i].bt;
-        p[i].ct=sum;
-        p[i].tat=p[i].ct-p[i].at;
-        total_tat+=p[i].tat;
-        p[i].wt=p[i].tat-p[i].bt;
-        total_wt+=p[i].wt;
+        check[i]=-1;
     }
-    printf("PROCESS \t\t AT \t\t Priority \t\t BT \t\t CT \t\t TAT \t\t WT\n");
+    while(done<n){
+            int visit=-1;
+            int highestprio=-1;
+            for(int i=0;i<n;i++){
+                if(p[i].at<=current && check[i]!=1){
+                    if(visit==-1){
+                        visit=1;
+                        highestprio=i;
+                    }
+                    if(p[i].prio<p[highestprio].prio){
+                        highestprio=i;
+                    }
+                }
+            }
+            sum+=p[highestprio].bt;
+            current=sum;
+            p[highestprio].ct=sum;
+            p[highestprio].tat=p[highestprio].ct-p[highestprio].at;
+            total_tat+=p[highestprio].tat;
+            p[highestprio].wt=p[highestprio].tat-p[highestprio].bt;
+            total_wt+=p[highestprio].wt;
+            check[highestprio]=1;
+            done++;
+    }
+    printf("PROCESS \t AT \t Priority \t BT \t CT \t TAT \t\t WT\n");
     for(int i=0;i<n;i++){
-        printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d",p[i].id,p[i].prio,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
+        printf("P%d\t%d\t%d\t%d\t%d\t%d\t%d\n",p[i].id,p[i].prio,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
 
     }
     printf("average tat: %f\n",(float)total_tat/n);
