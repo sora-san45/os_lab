@@ -36,7 +36,7 @@ void main(){
             printf("%d\t\t%d\t\t%s\n",i+1,process[i],"not allocated");
         }
         else{
-            printf("%d\t\t%d\t\t%d\n",i+1,process[i],allocated[i]);
+            printf("%d\t\t%d\t\t%d\n",i+1,process[i],allocated[i]+1);
         }
     }
 }
