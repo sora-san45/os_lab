@@ -19,7 +19,7 @@ void fifo(int pages[],int table[],int f, int n){
                 break;
             }
         }
-        if(s==3){
+        if(s==f){
             table[turn++]=pages[i];
             pagefaults++;
             if(turn==3){
