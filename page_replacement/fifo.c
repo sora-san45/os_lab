@@ -3,6 +3,7 @@ void fifo(int pages[],int table[],int f, int n){
     int pagefaults=0;
     int hits=0;
     int turn=0;
+    
     for(int i=0;i<n;i++){
         int s=0;
         for(int j=0;j<f;j++){
