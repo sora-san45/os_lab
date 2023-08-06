@@ -52,11 +52,12 @@ void main(){
         p[i].wt=p[i].tat-p[i].bt;
         total_wt+=p[i].wt;
     }
-    printf("PROCESS \t\t AT \t\t BT \t\t CT \t\t TAT \t\t WT\n");
+    printf("Pno\tAT\tBT\tCT\tTAT\tWT\n");
     for(int i=0;i<n;i++){
-        printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n",p[i].id,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
+        printf("P%d\t%d\t%d\t%d\t%d\t%d\n",p[i].id,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
 
     }
+    printf("\n");
     printf("average tat: %f\n",(float)total_tat/n);
     printf("average wt: %f",(float)total_wt/n);
 }
