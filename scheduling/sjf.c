@@ -1,33 +1,22 @@
 #include <stdio.h>
 struct process{
-        int id;
-        int at;
-        int bt;
-        int ct;
-        int tat;
-        int wt;
+    int pid;
+    int bt;
+    int ct;
+    int tat;
+    int wt;
 }p[20],temp;
-void main(){
-    int n;
-    printf("Enter number of processes : \n");
-    scanf("%d",&n);
-    for(int i=0;i<n;i++){
-        p[i].id=i+1;
-        printf("arrival time: ");
-        scanf("%d",&p[i].at);
-        printf("burst time: ");
-        scanf("%d",&p[i].bt);
-    }
+
+void sjf(struct process *p,int n){
     //sorting based on burst time
-    //bubble sort
     int swapped=0;
     for(int i=0;i<n;i++){
         for(int j=0;j<n-i-1;j++){
             if(p[j].bt>p[j+1].bt){
-                swapped=1;
                 temp=p[j];
                 p[j]=p[j+1];
                 p[j+1]=temp;
+                swapped=1;
             }
         }
         if(swapped==0){
@@ -35,21 +24,31 @@ void main(){
         }
     }
     int sum=0;
-    int total_tat=0;
-    int total_wt=0;
     for(int i=0;i<n;i++){
         sum+=p[i].bt;
         p[i].ct=sum;
-        p[i].tat=p[i].ct-p[i].at;
-        total_tat+=p[i].tat;
+        p[i].tat=p[i].ct;
         p[i].wt=p[i].tat-p[i].bt;
-        total_wt+=p[i].wt;
     }
-    printf("PROCESS \t\t AT \t\t BT \t\t CT \t\t TAT \t\t WT\n");
+}
+void main(){
+    int n;
+    printf("Enter number of process :");
+    scanf("%d",&n);
     for(int i=0;i<n;i++){
-        printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d",p[i].id,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
-
+        printf("\nEnter bt: ");
+        scanf("%d",&p[i].bt);
+        p[i].pid=i+1;
     }
-    printf("average tat: %f\n",(float)total_tat/n);
-    printf("average wt: %f",(float)total_wt/n);
+    sjf(p,n);
+    printf("\nPID\tBT\tCT\tTAT\tWT");
+    int total_tat=0;
+    int total_wt=0;
+    for(int i=0;i<n;i++){
+        total_tat+=p[i].tat;
+        total_wt+=p[i].wt;
+        printf("\n%d\t%d\t%d\t%d\t%d",p[i].pid,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
+    }
+    printf("\nAverage TAT : %f\n",(float)total_tat/n);
+    printf("Average WT : %f\n",(float)total_wt/n);
 }
