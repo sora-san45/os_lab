@@ -18,8 +18,9 @@ void main()
         }
     }
     printf("\nEnter available :");
-    for(int i=0;i<m;i++){
-        scanf("%d",&available[i]);
+    for (int i = 0; i < m; i++)
+    {
+        scanf("%d", &available[i]);
     }
     int index = 0;
     int ans[n];
@@ -47,8 +48,9 @@ void main()
                 {
                     ans[index++] = j;
                     finish[j] = 1;
-                    for(int w=0;w<m;w++){
-                        available[w]+=allocation[j][w];
+                    for (int w = 0; w < m; w++)
+                    {
+                        available[w] += allocation[j][w];
                     }
                 }
             }
