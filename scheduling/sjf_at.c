@@ -1,23 +1,30 @@
-#include <stdio.h>
+#include<stdio.h>
 struct process{
-    int pid;
     int at;
     int bt;
     int ct;
     int tat;
     int wt;
 }p[20],temp;
-
-void sjf(struct process *p,int n){
+void main(){
+    printf("\nEnter number of processes : ");
+    int n;
+    scanf("%d",&n);
+    printf("\nEnter processes : ");
+    for(int i=0;i<n;i++){
+        printf("\nEnter at and bt: ");
+        scanf("%d %d",&p[i].at,&p[i].bt);
+    }
     //sorting based on arrival time
     int swapped=0;
     for(int i=0;i<n;i++){
         for(int j=0;j<n-i-1;j++){
             if(p[j].at>p[j+1].at){
+                swapped=1;
                 temp=p[j];
                 p[j]=p[j+1];
                 p[j+1]=temp;
-                swapped=1;
+
             }
         }
         if(swapped==0){
@@ -25,6 +32,8 @@ void sjf(struct process *p,int n){
         }
     }
     int sum=0;
+    int total_tat=0;
+    int total_wt=0;
     int done=0;
     int check[n];
     for(int i=0;i<n;i++){
@@ -33,38 +42,29 @@ void sjf(struct process *p,int n){
     while(done<n){
         int low=-1;
         for(int i=0;i<n;i++){
-            if(p[i].at<=sum && (p[i].bt<p[low].bt||low==-1) && check[i]!=1){
-                low=i;
+            if(p[i].at<=sum){
+                if((low==-1 || p[i].bt<p[low].bt ) && check[i]==0){
+                    low=i;
+                }
             }
         }
+        if(low==-1){
+            sum++;
+            continue;
+        }
         sum+=p[low].bt;
+        check[low]=1;
         p[low].ct=sum;
         p[low].tat=p[low].ct-p[low].at;
         p[low].wt=p[low].tat-p[low].bt;
-        check[low]=1;
+        total_tat+=p[low].tat;
+        total_wt+=p[low].wt;
         done++;
     }
-}
-void main(){
-    int n;
-    printf("Enter number of process :");
-    scanf("%d",&n);
+    printf("Pno\tAT\tBT\tCT\tTAT\tWT\n");
     for(int i=0;i<n;i++){
-        printf("\nEnter at: ");
-        scanf("%d",&p[i].at);
-        printf("\nEnter bt: ");
-        scanf("%d",&p[i].bt);
-        p[i].pid=i+1;
+        printf("P%d\t%d\t%d\t%d\t%d\t%d\n",i+1,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
     }
-    sjf(p,n);
-    printf("\nPID\tBT\tCT\tTAT\tWT");
-    int total_tat=0;
-    int total_wt=0;
-    for(int i=0;i<n;i++){
-        total_tat+=p[i].tat;
-        total_wt+=p[i].wt;
-        printf("\n%d\t%d\t%d\t%d\t%d",p[i].pid,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
-    }
-    printf("\nAverage TAT : %f\n",(float)total_tat/n);
-    printf("Average WT : %f\n",(float)total_wt/n);
+    printf("total tat : %f",(float)total_tat/n);
+    printf("\ntotal wt : %f",(float)total_wt/n);
 }
