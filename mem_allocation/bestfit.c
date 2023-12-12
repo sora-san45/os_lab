@@ -1,42 +1,45 @@
-#include <stdio.h>
-void main(){
-    int pno,bno;
-    printf("enter number of processes:");
-    scanf("%d",&pno);
-    printf("enter number of blocks:");
-    scanf("%d",&bno);
-    int process[pno], block[bno];
-    printf("Enter process sizes: \n");
-    int allocated[pno];
-    for(int i=0;i<pno;i++){
-        allocated[i]=-1;
-        scanf("%d",&process[i]);
+#include<stdio.h>
+void bestfit(int process[],int block[],int n, int m){
+    int allocation[n];
+    for(int i=0;i<n;i++){
+        allocation[i]=-1;
     }
-    printf("enter block sizes:\n");
-    for(int i=0;i<bno;i++){
-        scanf("%d",&block[i]);
-    }
-    for(int i=0;i<pno;i++){
-        int bestblock=-1;
-        for(int j=0;j<bno;j++){
-            if(block[j]>=process[i]){
-                if(block[j]<block[bestblock] || bestblock==-1){
-                    bestblock=j;
-                }
+    for(int i=0;i<n;i++){
+        int best=-1;
+        for(int j=0;j<m;j++){
+            if(block[j]>=process[i] && (best==-1||block[j]<block[best])){
+                best=j;
             }
         }
-        if(bestblock!=-1){
-            allocated[i]=bestblock;
-            block[bestblock]-=process[i];
+        if(best!=-1){
+            allocation[i]=best+1;
+            block[best]-=process[i];
         }
     }
-    printf("Process id\t\t Process size \t\t Block allotted\n");
-    for(int i=0;i<pno;i++){
-        if(allocated[i]==-1){
-            printf("%d\t\t%d\t\t%s\n",i+1,process[i],"not allocated");
-        }
-        else{
-            printf("%d\t\t%d\t\t%d\n",i+1,process[i],allocated[i]+1);
+    printf("process  process_size  block_allocated\n");
+    for(int i=0;i<n;i++){
+        printf("%d\t%d\t",i+1,process[i]);
+        if(allocation[i]==-1){
+            printf("Not allocated\n");
+        }else{
+            printf("%d\n",allocation[i]);
         }
     }
+}
+void main(){
+    int n,m;
+    printf("\nEnter number of processes :");
+    scanf("%d",&n);
+    printf("\nEnter number of blocks :");
+    scanf("%d",&m);
+    int process[n],block[m];
+    printf("\n Enter processes :");
+    for(int i=0;i<n;i++){
+        scanf("%d",&process[i]);
+    }
+    printf("\n Enter blocks :");
+    for(int i=0;i<m;i++){
+        scanf("%d",&block[i]);
+    }
+    bestfit(process,block,n,m);
 }
