@@ -1,28 +1,25 @@
-#include <stdio.h>
+#include<stdio.h>
 struct process{
-        int id;
-        int prio;
-        int at;
-        int bt;
-        int ct;
-        int tat;
-        int wt;
-    }p[20],temp;
+    int id;
+    int prio;
+    int at;
+    int bt;
+    int ct;
+    int tat;
+    int wt;
+}p[20],temp;
 void main(){
+    printf("\nEnter number of processes :");
     int n;
-    printf("Enter number of processes : \n");
     scanf("%d",&n);
+    int check[n];
+    printf("\nEnter processes : ");
     for(int i=0;i<n;i++){
         p[i].id=i+1;
-        printf("arrival time: ");
-        scanf("%d",&p[i].at);
-        printf("priority: ");
-        scanf("%d",&p[i].prio);
-        printf("burst time: ");
-        scanf("%d",&p[i].bt);
+        check[i]=0;
+        printf("\nEnter at bt prio : ");
+        scanf("%d %d %d",&p[i].at,&p[i].bt,&p[i].prio);
     }
-    //sorting based on arrival time
-    //bubble sort
     int swapped=0;
     for(int i=0;i<n;i++){
         for(int j=0;j<n-i-1;j++){
@@ -37,44 +34,34 @@ void main(){
             break;
         }
     }
-    int sum=0;
     int total_tat=0;
     int total_wt=0;
-    int current=0;
+    int sum=0;
     int done=0;
-    int check[n];
-    for(int i=0;i<n;i++){
-        check[i]=-1;
-    }
     while(done<n){
-            int visit=-1;
-            int highestprio=-1;
-            for(int i=0;i<n;i++){
-                if(p[i].at<=current && check[i]!=1){
-                    if(visit==-1){
-                        visit=1;
-                        highestprio=i;
-                    }
-                    if(p[i].prio<p[highestprio].prio){
-                        highestprio=i;
-                    }
-                }
+        int high=-1;
+        for(int i=0;i<n;i++){
+            if(p[i].at<=sum && (high==-1 || p[i].prio<p[high].prio) && check[i]==0){
+                high=i;
             }
-            sum+=p[highestprio].bt;
-            current=sum;
-            p[highestprio].ct=sum;
-            p[highestprio].tat=p[highestprio].ct-p[highestprio].at;
-            total_tat+=p[highestprio].tat;
-            p[highestprio].wt=p[highestprio].tat-p[highestprio].bt;
-            total_wt+=p[highestprio].wt;
-            check[highestprio]=1;
-            done++;
+        }
+        if(high==-1){
+            sum++;
+            continue;
+        }
+        sum+=p[high].bt;
+        check[high]=1;
+        p[high].ct=sum;
+        p[high].tat=p[high].ct-p[high].at;
+        total_tat+=p[high].tat;
+        p[high].wt=p[high].tat-p[high].bt;
+        total_wt+=p[high].wt;
+        done++;
     }
-    printf("PROCESS \t AT \t Priority \t BT \t CT \t TAT \t\t WT\n");
+    printf("Pno\tAT\tBT\tCT\tTAT\tWT\n");
     for(int i=0;i<n;i++){
-        printf("P%d\t%d\t%d\t%d\t%d\t%d\t%d\n",p[i].id,p[i].prio,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
-
+        printf("P%d\t%d\t%d\t%d\t%d\t%d\n",p[i].id,p[i].at,p[i].bt,p[i].ct,p[i].tat,p[i].wt);
     }
-    printf("average tat: %f\n",(float)total_tat/n);
-    printf("average wt: %f",(float)total_wt/n);
+    printf("total tat : %f",(float)total_tat/n);
+    printf("\ntotal wt : %f",(float)total_wt/n);
 }
